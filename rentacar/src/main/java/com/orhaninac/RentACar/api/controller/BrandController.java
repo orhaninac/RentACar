@@ -35,6 +35,11 @@ public class BrandController {
 	public void add(@RequestBody CreateBrandRequest createBrandRequest) {
 		this.brandService.add(createBrandRequest);
 	}
+	
+	@PostMapping("/delete")
+	public void delete(@RequestBody int id) {
+		this.brandService.delete(id);
+	}
 
 	@GetMapping("/get")
 	public ListBrandDto get(@RequestParam int id) {

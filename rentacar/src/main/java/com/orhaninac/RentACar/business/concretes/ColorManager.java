@@ -50,6 +50,10 @@ public class ColorManager implements ColorService {
 		return response;
 	}
 
+	public void delete(int id) {
+		colorDao.deleteById(id);
+	}
+	
 	private boolean doesExist(Color color) {
 		return Objects.nonNull(colorDao.getByColorName(color.getColorName()));
 	}

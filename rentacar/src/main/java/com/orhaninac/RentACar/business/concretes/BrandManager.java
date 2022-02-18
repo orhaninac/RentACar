@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.orhaninac.RentACar.business.abstracts.BrandService;
 import com.orhaninac.RentACar.business.dtos.ListBrandDto;
 import com.orhaninac.RentACar.business.request.CreateBrandRequest;
+import com.orhaninac.RentACar.business.request.UpdateBrandRequest;
 import com.orhaninac.RentACar.core.utilities.mapping.ModelMapperService;
 import com.orhaninac.RentACar.dataAccess.abstracts.BrandDao;
 import com.orhaninac.RentACar.entities.concretes.Brand;
@@ -53,6 +54,19 @@ public class BrandManager implements BrandService {
 	private boolean doesExist(Brand brand) {
 
 		return Objects.nonNull(brandDao.getByBrandName(brand.getBrandName()));
+	}
+
+	@Override
+	public void update(UpdateBrandRequest updateBrandRequest) {
+		Brand brand = modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+		if (!doesExist(brand)) {
+			brandDao.save(brand);
+		}
+		
+	}
+	
+	public void delete(int id) {
+		brandDao.deleteById(id);
 	}
 
 }

@@ -10,40 +10,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.orhaninac.RentACar.business.abstracts.ColorService;
-import com.orhaninac.RentACar.business.dtos.ListColorDto;
-import com.orhaninac.RentACar.business.request.CreateColorRequest;
-
+import com.orhaninac.RentACar.business.abstracts.CarService;
+import com.orhaninac.RentACar.business.dtos.ListCarDto;
+import com.orhaninac.RentACar.business.request.CreateCarRequest;
 
 @RestController
-@RequestMapping("/api/colors")
-public class ColorController {
+@RequestMapping("/api/cars")
+public class CarController {
 
-	private ColorService colorService;
+	private CarService carService;
 
 	@Autowired
-	public ColorController(ColorService colorService) {
-		this.colorService = colorService;
+	public CarController(CarService carService) {
+		this.carService = carService;
 	}
 
 	@GetMapping("/getall")
-	public List<ListColorDto> getAll() {
-		return colorService.getAll();
+	public List<ListCarDto> getAll() {
+		return carService.getAll();
 	}
 
 	@PostMapping("/save")
-	public void add(@RequestBody CreateColorRequest createColorRequest) {
-		this.colorService.add(createColorRequest);
+	public void add(@RequestBody CreateCarRequest createCarRequest) {
+		this.carService.add(createCarRequest);
 	}
 	
 	@PostMapping("/delete")
 	public void delete(@RequestBody int id) {
-		this.colorService.delete(id);
+		this.carService.delete(id);
 	}
 
 	@GetMapping("/get")
-	public ListColorDto get(@RequestParam int id) {
-		return colorService.getById(id);
+	public ListCarDto get(@RequestParam int id) {
+		return carService.getById(id);
 	}
-
 }
