@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBrandRequest {
-	private int brandId;
-	private String brandName;
+public class UpdateColorRequest {
+	private int colorId;
+	private String colorName;
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.orhaninac.RentACar.business.abstracts.CarService;
 import com.orhaninac.RentACar.business.dtos.ListCarDto;
 import com.orhaninac.RentACar.business.request.CreateCarRequest;
+import com.orhaninac.RentACar.business.request.UpdateCarRequest;
 import com.orhaninac.RentACar.core.utilities.mapping.ModelMapperService;
 import com.orhaninac.RentACar.dataAccess.abstracts.CarDao;
 import com.orhaninac.RentACar.entities.concretes.Car;
@@ -46,14 +47,18 @@ public class CarManager implements CarService {
 	}
 
 	@Override
-	public void update(CreateCarRequest createCarRequest) {
-		
-
+	public Car update(UpdateCarRequest updateCarRequest) {
+		Car car = this.modelMapperService.forRequest().map(updateCarRequest, Car.class);
+		this.carDao.save(car);
+		return car;
 	}
 
 	@Override
 	public void delete(int id) {
 		carDao.deleteById(id);
 	}
+
+
+
 
 }

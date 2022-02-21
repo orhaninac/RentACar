@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.orhaninac.RentACar.business.abstracts.ColorService;
 import com.orhaninac.RentACar.business.dtos.ListColorDto;
 import com.orhaninac.RentACar.business.request.CreateColorRequest;
+import com.orhaninac.RentACar.business.request.UpdateColorRequest;
 import com.orhaninac.RentACar.core.utilities.mapping.ModelMapperService;
 import com.orhaninac.RentACar.dataAccess.abstracts.ColorDao;
 import com.orhaninac.RentACar.entities.concretes.Color;
@@ -52,6 +53,14 @@ public class ColorManager implements ColorService {
 
 	public void delete(int id) {
 		colorDao.deleteById(id);
+	}
+	
+	@Override
+	public Color update(UpdateColorRequest updateColorRequest) {
+		Color color = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
+		doesExist(color);
+		this.colorDao.save(color);
+		return color;
 	}
 	
 	private boolean doesExist(Color color) {

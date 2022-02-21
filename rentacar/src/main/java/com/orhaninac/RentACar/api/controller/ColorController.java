@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orhaninac.RentACar.business.abstracts.ColorService;
 import com.orhaninac.RentACar.business.dtos.ListColorDto;
 import com.orhaninac.RentACar.business.request.CreateColorRequest;
+import com.orhaninac.RentACar.business.request.UpdateColorRequest;
 
 
 @RestController
@@ -39,6 +40,11 @@ public class ColorController {
 	@PostMapping("/delete")
 	public void delete(@RequestBody int id) {
 		this.colorService.delete(id);
+	}
+	
+	@PostMapping("/update")
+	public void update(@RequestBody UpdateColorRequest color) {
+		this.colorService.update(color);
 	}
 
 	@GetMapping("/get")

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orhaninac.RentACar.business.abstracts.BrandService;
 import com.orhaninac.RentACar.business.dtos.ListBrandDto;
 import com.orhaninac.RentACar.business.request.CreateBrandRequest;
+import com.orhaninac.RentACar.business.request.UpdateBrandRequest;
 
 
 @RestController
@@ -39,6 +40,11 @@ public class BrandController {
 	@PostMapping("/delete")
 	public void delete(@RequestBody int id) {
 		this.brandService.delete(id);
+	}
+	
+	@PostMapping("/update")
+	public void update(@RequestBody UpdateBrandRequest brand) {
+		this.brandService.update(brand);
 	}
 
 	@GetMapping("/get")

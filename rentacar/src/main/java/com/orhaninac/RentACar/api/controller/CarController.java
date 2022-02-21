@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orhaninac.RentACar.business.abstracts.CarService;
 import com.orhaninac.RentACar.business.dtos.ListCarDto;
 import com.orhaninac.RentACar.business.request.CreateCarRequest;
+import com.orhaninac.RentACar.business.request.UpdateCarRequest;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -43,5 +44,10 @@ public class CarController {
 	@GetMapping("/get")
 	public ListCarDto get(@RequestParam int id) {
 		return carService.getById(id);
+	}
+	
+	@PostMapping("/update")
+	public void update(@RequestBody UpdateCarRequest car) {
+		this.carService.update(car);
 	}
 }

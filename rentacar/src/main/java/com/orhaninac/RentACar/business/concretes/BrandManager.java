@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,12 +58,11 @@ public class BrandManager implements BrandService {
 	}
 
 	@Override
-	public void update(UpdateBrandRequest updateBrandRequest) {
-		Brand brand = modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
-		if (!doesExist(brand)) {
-			brandDao.save(brand);
-		}
-		
+	public Brand update(UpdateBrandRequest updateBrandRequest) {
+		Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+		doesExist(brand);
+		this.brandDao.save(brand);
+		return brand;
 	}
 	
 	public void delete(int id) {
