@@ -14,6 +14,7 @@ import com.orhaninac.RentACar.business.abstracts.CarService;
 import com.orhaninac.RentACar.business.dtos.ListCarDto;
 import com.orhaninac.RentACar.business.request.CreateCarRequest;
 import com.orhaninac.RentACar.business.request.UpdateCarRequest;
+import com.orhaninac.RentACar.core.utilities.results.DataResult;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -49,5 +50,20 @@ public class CarController {
 	@PostMapping("/update")
 	public void update(@RequestBody UpdateCarRequest car) {
 		this.carService.update(car);
+	}
+	
+	@GetMapping("/getByDailyPrice/{dailyPrice}")
+	public DataResult<List<ListCarDto>> getByDailyPrice(@RequestParam double dailyPrice) {
+		return this.carService.getByDailyPrice(dailyPrice);
+	}
+	
+	@GetMapping("/getallpages")
+	public DataResult<List<ListCarDto>> getAllPaged(int pageNo, int pageSize) {
+		return carService.getAllPaged(pageNo, pageSize);
+	}
+
+	@GetMapping("/getallsorted")
+	public DataResult<List<ListCarDto>> getAllSorted(String direction) {
+		return carService.getAllSorted(direction);
 	}
 }
