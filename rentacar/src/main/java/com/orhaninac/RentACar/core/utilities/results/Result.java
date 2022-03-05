@@ -2,11 +2,11 @@ package com.orhaninac.RentACar.core.utilities.results;
 
 public class Result {
 	
-	
 	private boolean success;
 	private String message;
-	
+
 	public Result(boolean success) {
+		super();
 		this.success = success;
 	}
 
@@ -14,11 +14,11 @@ public class Result {
 		this(success);
 		this.message = message;
 	}
-	
+
 	public boolean isSuccess() {
 		return success;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
