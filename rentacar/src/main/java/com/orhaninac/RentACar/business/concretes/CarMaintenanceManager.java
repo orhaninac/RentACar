@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.orhaninac.RentACar.business.abstracts.CarMaintenanceService;
+import com.orhaninac.RentACar.business.dtos.ListCarDto;
 import com.orhaninac.RentACar.business.dtos.ListCarMaintenanceDto;
 import com.orhaninac.RentACar.business.request.CreateCarMaintenanceRequest;
 import com.orhaninac.RentACar.business.request.UpdateCarMaintenanceRequest;
@@ -16,6 +17,7 @@ import com.orhaninac.RentACar.core.utilities.results.Result;
 import com.orhaninac.RentACar.core.utilities.results.SuccessResult;
 import com.orhaninac.RentACar.core.utilities.results.SuccessDataResult;
 import com.orhaninac.RentACar.dataAccess.abstracts.CarMaintenanceDao;
+import com.orhaninac.RentACar.entities.concretes.Car;
 import com.orhaninac.RentACar.entities.concretes.CarMaintenance;
 
 
@@ -33,9 +35,9 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 
 	@Override
 	public DataResult<List<ListCarMaintenanceDto>> getAll() {
-		List<CarMaintenance> result = this.carMaintenanceDao.findAll();
+		List<CarMaintenance> result = carMaintenanceDao.findAll();
 		List<ListCarMaintenanceDto> response = result.stream()
-				.map(carMaintenance -> this.modelMapperService.forDto().map(carMaintenance, ListCarMaintenanceDto.class)).collect(Collectors.toList());
+				.map(carMaintenance -> modelMapperService.forDto().map(carMaintenance, ListCarMaintenanceDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<ListCarMaintenanceDto>>(response, "Car maintenances listed successfully.");
 	}
 

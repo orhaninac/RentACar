@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListCarDto {
-	private int id;
+	private int carId;
 	private double dailyPrice;
 	private int modelYear;
 	private String description;
