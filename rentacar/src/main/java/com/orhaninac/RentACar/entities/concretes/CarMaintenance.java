@@ -1,10 +1,9 @@
 package com.orhaninac.RentACar.entities.concretes;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +14,8 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="car_maintenances")
@@ -31,7 +29,7 @@ public class CarMaintenance {
 		private String description;
 		
 		@Column(name="return_date")
-		private Date returnDate;
+		private LocalDate returnDate;
 		
 		@ManyToOne
 		@JoinColumn(name="car_id")

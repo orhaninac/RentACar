@@ -14,7 +14,7 @@ public interface CarRentalDao extends JpaRepository<CarRental, Integer>{
 	
 	CarRental findById(int id);
 	List<CarRental> findByCar_CarId(int carId);
-	List<CarRental> findByCar_CustomerId(int customerId);
+	//List<CarRental> findByCar_CustomerId(int customerId);
 	//List<CarMaintenance> findByCar_CarId(int carId);
 
 }

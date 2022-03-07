@@ -12,10 +12,13 @@ import com.orhaninac.RentACar.business.request.CreateCarRentalRequest;
 import com.orhaninac.RentACar.business.request.UpdateCarRentalRequest;
 import com.orhaninac.RentACar.core.utilities.mapping.ModelMapperService;
 import com.orhaninac.RentACar.core.utilities.results.DataResult;
+import com.orhaninac.RentACar.core.utilities.results.ErrorResult;
 import com.orhaninac.RentACar.core.utilities.results.Result;
 import com.orhaninac.RentACar.core.utilities.results.SuccessDataResult;
 import com.orhaninac.RentACar.core.utilities.results.SuccessResult;
+import com.orhaninac.RentACar.dataAccess.abstracts.CarMaintenanceDao;
 import com.orhaninac.RentACar.dataAccess.abstracts.CarRentalDao;
+import com.orhaninac.RentACar.entities.concretes.CarMaintenance;
 import com.orhaninac.RentACar.entities.concretes.CarRental;
 
 @Service
@@ -23,11 +26,16 @@ public class CarRentalManager implements CarRentalService {
 	
 	private CarRentalDao carRentalDao;
 	private ModelMapperService modelMapperService;
+	private CarMaintenanceDao carMaintenanceDao;
 	
-	@Autowired
-	public CarRentalManager(CarRentalDao carRentalDao, ModelMapperService modelMapperService) {
+
+
+	public CarRentalManager(CarRentalDao carRentalDao, ModelMapperService modelMapperService,
+			CarMaintenanceDao carMaintenanceDao) {
+		super();
 		this.carRentalDao = carRentalDao;
 		this.modelMapperService = modelMapperService;
+		this.carMaintenanceDao = carMaintenanceDao;
 	}
 
 	@Override
@@ -41,6 +49,10 @@ public class CarRentalManager implements CarRentalService {
 	@Override
 	public Result add(CreateCarRentalRequest createCarRentalRequest) {
 		CarRental carRental = this.modelMapperService.forRequest().map(createCarRentalRequest, CarRental.class);
+
+		if (!checkIsUnderMaintenance(carRental)) {
+			return new ErrorResult("CarRental.NotAdded , Car is under maintenance!");
+		}
 		carRentalDao.save(carRental);
 		return new SuccessResult("Car rental added successfully.");
 	}
@@ -71,6 +83,19 @@ public class CarRentalManager implements CarRentalService {
 		List<ListCarRentalDto> response = result.stream()
 				.map(carRental -> this.modelMapperService.forDto().map(carRental, ListCarRentalDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<ListCarRentalDto>>(response, "Car rental listed successfully.");
+	}
+	
+	private boolean checkIsUnderMaintenance(CarRental carRental) {
+		List<CarMaintenance> result = this.carMaintenanceDao.findByCar_CarId(carRental.getCar().getCarId());
+		if (result != null) {
+			for (CarMaintenance carMaintenance : result) {
+				if (carRental.getRentDate().isBefore(carMaintenance.getReturnDate())
+						|| carRental.getReturnDate().isBefore(carMaintenance.getReturnDate())) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }

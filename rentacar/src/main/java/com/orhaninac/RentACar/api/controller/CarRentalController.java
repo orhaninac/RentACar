@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orhaninac.RentACar.business.abstracts.CarRentalService;
+import com.orhaninac.RentACar.business.dtos.ListCarMaintenanceDto;
 import com.orhaninac.RentACar.business.dtos.ListCarRentalDto;
 import com.orhaninac.RentACar.business.request.CreateCarRentalRequest;
 import com.orhaninac.RentACar.business.request.UpdateCarRentalRequest;
@@ -57,6 +58,11 @@ public class CarRentalController {
 	public Result update(@RequestBody UpdateCarRentalRequest updateCarRentalRequest)
 			throws BusinessException {
 		return this.carRentalService.update(updateCarRentalRequest);
+	}
+	
+	@GetMapping("/getByCarId/{carId}")
+	public DataResult<List<ListCarRentalDto>> getByCarId(@RequestParam int carId) {
+		return this.carRentalService.getByCarId(carId);
 	}
 
 }

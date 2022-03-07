@@ -1,6 +1,6 @@
 package com.orhaninac.RentACar.business.request;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ public class CreateCarMaintenanceRequest {
 	private String description;
 	
 	@NotNull
-	private Date returnDate;
+	private LocalDate returnDate;
 
 
 }

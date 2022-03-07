@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ListCarRentalDto {
 
 	private int id;
-    private LocalDate rentalDate;
+    private LocalDate rentDate;
     private LocalDate returnDate;
     private int customerId;
     private int carId;
