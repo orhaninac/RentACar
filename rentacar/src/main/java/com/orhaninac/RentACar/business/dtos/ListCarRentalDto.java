@@ -16,5 +16,6 @@ public class ListCarRentalDto {
     private LocalDate returnDate;
     private int customerId;
     private int carId;
+	private String[] addtionalServiceName;
     
 }

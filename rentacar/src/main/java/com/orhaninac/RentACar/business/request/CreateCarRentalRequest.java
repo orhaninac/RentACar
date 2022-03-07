@@ -26,5 +26,7 @@ public class CreateCarRentalRequest {
 	@NotNull
 	@Min(1)
     private int carId;
+	
+	private int[] additionalServiceId;
 
 }
