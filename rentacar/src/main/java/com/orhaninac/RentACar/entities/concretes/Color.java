@@ -27,6 +27,7 @@ public class Color {
 	private int colorId;
 	@Column(name = "color_name")
 	private String colorName;
+	
 	@OneToMany
 	private List<Car> cars;
 

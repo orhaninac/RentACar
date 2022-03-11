@@ -45,11 +45,9 @@ public class CarRental {
     @JoinColumn(name = "car_id")
     private Car car;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "rental_additional_service",
-    joinColumns = @JoinColumn(name = "id"),
-    inverseJoinColumns = @JoinColumn(name = "additional_service_id"))
-    private List<AdditionalService> rentalAdditionalServices;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "ordered_additional_service", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))
+	private List<AdditionalService> rentalAdditionalServices;
    
 
 }

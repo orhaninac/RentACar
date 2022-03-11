@@ -30,6 +30,6 @@ public class AdditionalService {
 	private String name;
 	
 	@ManyToMany(mappedBy = "rentalAdditionalServices")
-    private List<CarRental> additionalServiceRental;
+	private List<CarRental> additionalServiceRentals;
 
 }

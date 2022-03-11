@@ -1,6 +1,7 @@
 package com.orhaninac.RentACar.business.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,6 @@ public class ListCarRentalDto {
     private LocalDate returnDate;
     private int customerId;
     private int carId;
-	private String[] addtionalServiceName;
+	private List<ListAdditionalServiceDto> addtionalServices;
     
 }
