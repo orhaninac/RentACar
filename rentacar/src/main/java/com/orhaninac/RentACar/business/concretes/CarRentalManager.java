@@ -34,15 +34,17 @@ public class CarRentalManager implements CarRentalService {
 	private ModelMapperService modelMapperService;
 	private CarMaintenanceService carMaintenanceService;
 	private CarService carService;
+	private CarMaintenanceDao carMaintenanceDao;
 	
 
 	public CarRentalManager(CarRentalDao carRentalDao, ModelMapperService modelMapperService,
-			 CarMaintenanceService carMaintenanceService,CarService carService) {
+			 CarMaintenanceService carMaintenanceService,CarService carService,CarMaintenanceDao carMaintenanceDao) {
 		super();
 		this.carRentalDao = carRentalDao;
 		this.modelMapperService = modelMapperService;
 		this.carMaintenanceService = carMaintenanceService;
 		this.carService=carService;
+		this.carMaintenanceDao=carMaintenanceDao;
 	}
 
 	@Override
@@ -63,6 +65,7 @@ public class CarRentalManager implements CarRentalService {
 		
 		checkIfCarIsAvaliable(createCarRentalRequest.getCarId());
 		CarRental carRental = this.modelMapperService.forRequest().map(createCarRentalRequest, CarRental.class);
+		System.out.println(createCarRentalRequest.getRentDate());
 		checkIfInMaintenance(carRental);
 		carRentalDao.save(carRental);
 		return new SuccessResult("Car rental added successfully.");
@@ -109,7 +112,7 @@ public class CarRentalManager implements CarRentalService {
 	}
 	
 
-	private void checkIfCarIsAvaliable(int carId) {
+	private void checkIfCarIsAvaliable(int carId) throws BusinessException {
 
 		ListCarDto result = this.carService.getById(carId);
 
@@ -118,10 +121,10 @@ public class CarRentalManager implements CarRentalService {
 		}
 	}
 	
-	private void checkIfInMaintenance(CarRental carRental) {
-		List<ListCarMaintenanceDto> result = this.carMaintenanceService.getByCarId(carRental.getCar().getCarId()).getData();
-				
-		for (ListCarMaintenanceDto carMaintenanceDto : result) {
+	private void checkIfInMaintenance(CarRental carRental) throws BusinessException {
+		//List<ListCarMaintenanceDto> result = this.carMaintenanceService.getByCarId(carRental.getCar().getCarId()).getData();
+		List<CarMaintenance> result=carMaintenanceDao.findByCar_CarId(14);
+		for (CarMaintenance carMaintenanceDto : result) {
 			if ((carMaintenanceDto.getReturnDate() != null)
 					&& (carRental.getRentDate().isBefore(carMaintenanceDto.getReturnDate())
 							|| carRental.getReturnDate().isBefore(carMaintenanceDto.getReturnDate()))) {

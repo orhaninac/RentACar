@@ -26,7 +26,7 @@ public class CreateCarRentalRequest {
 	private int customerId;
 
 	@NotNull
-	private LocalDate rentalDate;
+	private LocalDate rentDate;
 
 	@Nullable
 	private LocalDate returnDate;
