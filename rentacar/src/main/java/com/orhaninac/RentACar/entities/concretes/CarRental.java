@@ -45,9 +45,19 @@ public class CarRental {
     @JoinColumn(name = "car_id")
     private Car car;
     
+    @Column(name = "total_price")
+    private double totalPrice;
+    
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "ordered_additional_service", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))
 	private List<AdditionalService> rentalAdditionalServices;
+	
+    @ManyToOne
+    @JoinColumn(name = "rented_city_id")
+    private City rentedCity;
+    @ManyToOne
+    @JoinColumn(name = "returned_city_id")
+    private City returnedCity;
    
 
 }

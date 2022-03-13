@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.lang.Nullable;
 
@@ -33,5 +34,10 @@ public class CreateCarRentalRequest {
 
 	@Nullable
 	private List<AdditionalServiceIdDto> additionalServicesIds;
+	
+	@Positive
+	private int rentedCityId;
+	@Positive
+	private int returnedCityId;
 
 }
