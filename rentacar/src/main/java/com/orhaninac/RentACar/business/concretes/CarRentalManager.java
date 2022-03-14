@@ -14,6 +14,7 @@ import com.orhaninac.RentACar.business.dtos.ListCarMaintenanceDto;
 import com.orhaninac.RentACar.business.dtos.ListCarRentalDto;
 import com.orhaninac.RentACar.business.request.CreateCarRentalRequest;
 import com.orhaninac.RentACar.business.request.UpdateCarRentalRequest;
+import com.orhaninac.RentACar.business.request.UpdateCarRequest;
 import com.orhaninac.RentACar.core.utilities.mapping.ModelMapperService;
 import com.orhaninac.RentACar.core.utilities.results.DataResult;
 import com.orhaninac.RentACar.core.utilities.results.ErrorDataResult;
@@ -21,8 +22,11 @@ import com.orhaninac.RentACar.core.utilities.results.ErrorResult;
 import com.orhaninac.RentACar.core.utilities.results.Result;
 import com.orhaninac.RentACar.core.utilities.results.SuccessDataResult;
 import com.orhaninac.RentACar.core.utilities.results.SuccessResult;
+import com.orhaninac.RentACar.dataAccess.abstracts.CarDao;
 import com.orhaninac.RentACar.dataAccess.abstracts.CarMaintenanceDao;
 import com.orhaninac.RentACar.dataAccess.abstracts.CarRentalDao;
+import com.orhaninac.RentACar.entities.concretes.AdditionalService;
+import com.orhaninac.RentACar.entities.concretes.Car;
 import com.orhaninac.RentACar.entities.concretes.CarMaintenance;
 import com.orhaninac.RentACar.entities.concretes.CarRental;
 import com.orhaninac.RentACar.exceptions.BusinessException;
@@ -31,20 +35,24 @@ import com.orhaninac.RentACar.exceptions.BusinessException;
 public class CarRentalManager implements CarRentalService {
 	
 	private CarRentalDao carRentalDao;
+	private CarDao carDao;
 	private ModelMapperService modelMapperService;
 	private CarMaintenanceService carMaintenanceService;
 	private CarService carService;
 	private CarMaintenanceDao carMaintenanceDao;
 	
 
-	public CarRentalManager(CarRentalDao carRentalDao, ModelMapperService modelMapperService,
-			 CarMaintenanceService carMaintenanceService,CarService carService,CarMaintenanceDao carMaintenanceDao) {
+
+
+	public CarRentalManager(CarRentalDao carRentalDao, CarDao carDao, ModelMapperService modelMapperService,
+			CarMaintenanceService carMaintenanceService, CarService carService, CarMaintenanceDao carMaintenanceDao) {
 		super();
 		this.carRentalDao = carRentalDao;
+		this.carDao = carDao;
 		this.modelMapperService = modelMapperService;
 		this.carMaintenanceService = carMaintenanceService;
-		this.carService=carService;
-		this.carMaintenanceDao=carMaintenanceDao;
+		this.carService = carService;
+		this.carMaintenanceDao = carMaintenanceDao;
 	}
 
 	@Override
@@ -67,6 +75,7 @@ public class CarRentalManager implements CarRentalService {
 		CarRental carRental = this.modelMapperService.forRequest().map(createCarRentalRequest, CarRental.class);
 		System.out.println(createCarRentalRequest.getRentDate());
 		checkIfInMaintenance(carRental);
+		carRental.setRentalPrice(calculateTotalPrice(carRental));
 		carRentalDao.save(carRental);
 		return new SuccessResult("Car rental added successfully.");
 	}
@@ -92,9 +101,16 @@ public class CarRentalManager implements CarRentalService {
 
 	@Override
 	public Result update(UpdateCarRentalRequest updateCarRentalRequest) {
+		
 		CarRental carRental = this.modelMapperService.forRequest().map(updateCarRentalRequest, CarRental.class);
 		checkIfParameterIsNull(updateCarRentalRequest, carRental);
+		carRental.setReturnedKm(updateCarRentalRequest.getReturnedKm());
+		//maplenerek car service kullanılacak
+		Car car=carDao.getById(updateCarRentalRequest.getCarId());
+		car.setCurrentKm(updateCarRentalRequest.getReturnedKm());
+		carDao.save(car);
 		carRentalDao.save(carRental);
+		
 		return new SuccessResult("Car rental updated successfully");
 	}
 
@@ -154,6 +170,18 @@ public class CarRentalManager implements CarRentalService {
 		}
 		
 		return updateRentalCarRequest;
+	}
+	private int calculateTotalPrice(CarRental carRental) {
+		int price = 0;
+		
+		/*for (AdditionalService additionalService : carRental.getRentalAdditionalServices()) {
+			price += additionalService.getAdditionalServicePrice();
+		}*/
+		if(carRental.getRentedCity().getId() != carRental.getReturnedCity().getId()) {
+			price += 750;
+		}
+		
+		return price;
 	}
 
 

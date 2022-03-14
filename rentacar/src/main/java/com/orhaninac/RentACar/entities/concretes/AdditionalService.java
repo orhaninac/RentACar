@@ -25,8 +25,12 @@ public class AdditionalService {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "additional_service_id")
 	private int id;
+	
 	@Column(name = "additional_service_name")
 	private String name;
+	
+	//@Column(name = "additional_service_price")
+	//private double additionalServicePrice;
 	
 	@ManyToMany(mappedBy = "rentalAdditionalServices")
 	private List<CarRental> additionalServiceRentals;

@@ -46,6 +46,9 @@ public class Car {
 	@ManyToOne
 	private Color color;
 	
+	@Column(name="current_km")
+	private Integer currentKm;
+	
 	@OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CarMaintenance> carMaintenances;
 	

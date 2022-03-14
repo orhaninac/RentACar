@@ -14,5 +14,7 @@ public class CreateAdditionalServiceRequest {
 	
 	@NotNull
 	private String name;
+	@NotNull
+	private int additionalServicePrice;
 
 }

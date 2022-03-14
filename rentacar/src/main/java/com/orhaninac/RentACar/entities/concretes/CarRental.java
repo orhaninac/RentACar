@@ -36,6 +36,12 @@ public class CarRental {
 
     @Column(name = "return_date")
     private LocalDate returnDate;
+    
+    @Column(name="started_km")
+    private int startedKm;
+    
+    @Column(name="returned_km")
+    private int returnedKm;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -58,6 +64,9 @@ public class CarRental {
     @ManyToOne
     @JoinColumn(name = "returned_city_id")
     private City returnedCity;
+    
+	@Column(name = "rental_daily_price")
+	private double rentalPrice;
    
 
 }

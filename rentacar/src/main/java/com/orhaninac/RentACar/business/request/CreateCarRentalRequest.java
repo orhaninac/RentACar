@@ -39,5 +39,11 @@ public class CreateCarRentalRequest {
 	private int rentedCityId;
 	@Positive
 	private int returnedCityId;
+	
+	@Positive
+	private int startedKm;
+	
+	@Positive
+	private int returnedKm;
 
 }

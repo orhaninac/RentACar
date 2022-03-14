@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,6 +21,8 @@ public class Customer extends User{
 	
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     List<CarRental> carRentalList;
-
+    
+    @OneToMany
+    List<Invoice> invoices;
 
 }

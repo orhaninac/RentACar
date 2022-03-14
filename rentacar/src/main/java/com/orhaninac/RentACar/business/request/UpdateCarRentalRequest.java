@@ -30,12 +30,19 @@ public class UpdateCarRentalRequest {
 	@NotNull
     private int carId;
     
-	@Nullable
+
 	private List<AdditionalServiceIdDto> additionalServicesIds;
 	
 	@Positive
 	private int rentedCityId;
 	@Positive
 	private int returnedCityId;
+	
+	@Positive
+	private int startedKm;
+	
+	@Positive
+	private int returnedKm;
+
 
 }
