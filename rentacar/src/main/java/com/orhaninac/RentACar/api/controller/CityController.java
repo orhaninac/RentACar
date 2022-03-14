@@ -21,8 +21,9 @@ import com.orhaninac.RentACar.business.request.UpdateCityRequest;
 import com.orhaninac.RentACar.core.utilities.results.DataResult;
 import com.orhaninac.RentACar.core.utilities.results.Result;
 import com.orhaninac.RentACar.exceptions.BusinessException;
-
 import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @RestController
 @RequestMapping("/api/cities")

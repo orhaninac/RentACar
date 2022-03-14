@@ -3,7 +3,6 @@ package com.orhaninac.RentACar.entities.concretes;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,15 +37,16 @@ public class CarRental {
     @Column(name = "return_date")
     private LocalDate returnDate;
 
-    @Column(name="customer_id")
-    private int customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToOne()
     @JoinColumn(name = "car_id")
     private Car car;
     
-    @Column(name = "total_price")
-    private double totalPrice;
+    //@Column(name = "total_price")
+    //private double totalPrice;
     
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "ordered_additional_service", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))

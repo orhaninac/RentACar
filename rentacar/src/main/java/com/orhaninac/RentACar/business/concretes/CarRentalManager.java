@@ -85,7 +85,7 @@ public class CarRentalManager implements CarRentalService {
 
 	@Override
 	public Result delete(int id) {
-		checkIfRentalCar(id);
+		/checkIfRentalCar(id);
 		this.carRentalDao.deleteById(id);
 		return new SuccessResult("Car rental deleted successfully.");
 	}

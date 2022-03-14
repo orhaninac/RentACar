@@ -5,25 +5,21 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "customers")
-@PrimaryKeyJoinColumn(name = "customer_id")
-@Builder(builderMethodName = "customerBuilder")
+@EqualsAndHashCode(callSuper=false)
 public class Customer extends User{
 	
-	//cascade silindi
-    //@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    //List<CarRental> carRentalList;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    List<CarRental> carRentalList;
+
 
 }

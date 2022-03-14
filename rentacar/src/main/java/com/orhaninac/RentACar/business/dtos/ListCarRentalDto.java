@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ListCarRentalDto {
 
-	private int id;
+	private int carRentalid;
     private LocalDate rentDate;
     private LocalDate returnDate;
     private int customerId;
     private int carId;
+    //private double carTotalPrice;
 	private List<ListAdditionalServiceDto> addtionalServices;
     
 }
