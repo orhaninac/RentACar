@@ -29,6 +29,7 @@ import com.orhaninac.RentACar.entities.concretes.AdditionalService;
 import com.orhaninac.RentACar.entities.concretes.Car;
 import com.orhaninac.RentACar.entities.concretes.CarMaintenance;
 import com.orhaninac.RentACar.entities.concretes.CarRental;
+import com.orhaninac.RentACar.entities.concretes.OrderedAdditionalService;
 import com.orhaninac.RentACar.exceptions.BusinessException;
 
 @Service
@@ -73,7 +74,17 @@ public class CarRentalManager implements CarRentalService {
 		
 		checkIfCarIsAvaliable(createCarRentalRequest.getCarId());
 		CarRental carRental = this.modelMapperService.forRequest().map(createCarRentalRequest, CarRental.class);
-		System.out.println(createCarRentalRequest.getRentDate());
+		List<OrderedAdditionalService> orderedAdditionalServices = createCarRentalRequest.getAdditionalServicesIds()
+				.stream().map(additionalService -> this.modelMapperService
+						.forRequest().map(additionalService, OrderedAdditionalService.class))
+				.collect(Collectors.toList());
+		
+		for (int i = 0; i < orderedAdditionalServices.size(); i++) {
+			orderedAdditionalServices.get(i).setId(0);
+			orderedAdditionalServices.get(i).setCarRental(carRental);
+		}
+		
+		carRental.setOrderedAdditionalServices(orderedAdditionalServices);
 		checkIfInMaintenance(carRental);
 		carRental.setRentalPrice(calculateTotalPrice(carRental));
 		carRentalDao.save(carRental);

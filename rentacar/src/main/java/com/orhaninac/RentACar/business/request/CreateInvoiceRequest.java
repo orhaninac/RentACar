@@ -27,11 +27,11 @@ public class CreateInvoiceRequest {
 	@NotNull
 	private LocalDate invoiceDate;
 
-	@NotNull
-	private LocalDate rentedDate;
-
-	@NotNull
-	private LocalDate returnedDate;
+//	@NotNull
+//	private LocalDate rentedDate;
+//
+//	@NotNull
+//	private LocalDate returnedDate;
 
 	@NotNull
 	private int rentalPrice;

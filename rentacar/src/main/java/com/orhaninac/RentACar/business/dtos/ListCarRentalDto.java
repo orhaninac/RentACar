@@ -17,7 +17,7 @@ public class ListCarRentalDto {
     private LocalDate returnDate;
     private int customerId;
     private int carId;
-    //private double carTotalPrice;
+    private double totalPrice;
 	private List<ListAdditionalServiceDto> addtionalServices;
     
 }

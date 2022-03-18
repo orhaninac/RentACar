@@ -3,6 +3,7 @@ package com.orhaninac.RentACar.entities.concretes;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -28,7 +31,7 @@ public class CarRental {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "car_rental_id")
 	private int id;
 	
 	@Column(name = "rent_date")
@@ -51,12 +54,11 @@ public class CarRental {
     @JoinColumn(name = "car_id")
     private Car car;
     
-    //@Column(name = "total_price")
-    //private double totalPrice;
+    @Column(name = "total_price")
+    private double totalPrice=0.0;
     
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "ordered_additional_service", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))
-	private List<AdditionalService> rentalAdditionalServices;
+	@OneToMany(mappedBy = "carRental", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<OrderedAdditionalService> orderedAdditionalServices;
 	
     @ManyToOne
     @JoinColumn(name = "rented_city_id")
@@ -68,5 +70,7 @@ public class CarRental {
 	@Column(name = "rental_daily_price")
 	private double rentalPrice;
    
+	@OneToOne(mappedBy = "carRental")
+	private Invoice invoice;
 
 }
