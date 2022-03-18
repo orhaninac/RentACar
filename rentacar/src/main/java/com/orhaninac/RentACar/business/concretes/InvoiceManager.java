@@ -51,7 +51,6 @@ public class InvoiceManager implements InvoiceService {
 	public Result add(CreateInvoiceRequest createInvoiceRequest) {
 		
 		Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
-		System.out.println(carRentalService.getById(createInvoiceRequest.getCarRentalId()).getData().getRentDate());
 		ListCarRentalDto carRentalDto=carRentalService.getById(createInvoiceRequest.getCarRentalId()).getData();
 		CarRental carRental = this.modelMapperService.forRequest().
 				map(carRentalDto, CarRental.class);
