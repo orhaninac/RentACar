@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.orhaninac.RentACar.business.abstracts.CarRentalService;
 import com.orhaninac.RentACar.business.abstracts.InvoiceService;
 import com.orhaninac.RentACar.business.dtos.GetInvoiceDto;
+import com.orhaninac.RentACar.business.dtos.ListCarRentalDto;
 import com.orhaninac.RentACar.business.dtos.ListInvoiceDto;
 import com.orhaninac.RentACar.business.request.CreateInvoiceRequest;
 import com.orhaninac.RentACar.business.request.UpdateInvoiceRequest;
@@ -50,13 +51,13 @@ public class InvoiceManager implements InvoiceService {
 	public Result add(CreateInvoiceRequest createInvoiceRequest) {
 		
 		Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
-		System.out.println(carRentalService.getById(createInvoiceRequest.getCarRentalId()).toString());
+		System.out.println(carRentalService.getById(createInvoiceRequest.getCarRentalId()).getData().getRentDate());
+		ListCarRentalDto carRentalDto=carRentalService.getById(createInvoiceRequest.getCarRentalId()).getData();
 		CarRental carRental = this.modelMapperService.forRequest().
-				map(carRentalService.getById(createInvoiceRequest.getCarRentalId()), CarRental.class);
+				map(carRentalDto, CarRental.class);
 		invoice.setCustomer(carRental.getCustomer());
 		invoice.setRentalPrice(carRental.getRentalPrice());
 		invoice.setRentedDate(carRental.getRentDate());
-		System.out.println(carRental.getOrderedAdditionalServices());
 		invoice.setReturnedDate(carRental.getReturnDate());
 		invoice.setCustomer(carRental.getCustomer());
 		this.invoiceDao.save(invoice);
