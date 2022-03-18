@@ -33,10 +33,12 @@ public class CreateInvoiceRequest {
 //	@NotNull
 //	private LocalDate returnedDate;
 
-	@NotNull
-	private int rentalPrice;
+//	@NotNull
+//	private int rentalPrice;
 
-	@NotNull
-	private int customerId;
+//	@NotNull
+//	private int customerId;
+	
+	private int carRentalId;
 
 }

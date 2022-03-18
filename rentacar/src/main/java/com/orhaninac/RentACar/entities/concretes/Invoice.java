@@ -36,14 +36,16 @@ public class Invoice {
 	@Column(name="invoiceDate")
 	private LocalDate invoiceDate;
 	
-	/*
-	 * @Column(name="invoice_rent_date") private LocalDate rentedDate;
-	 * 
-	 * @Column(name="invoice_return_date") private LocalDate returnedDate;
-	 */ 
+	
+	@Column(name="invoice_rent_date") 
+	private LocalDate rentedDate;
+	 
+	@Column(name="invoice_return_date") 
+	private LocalDate returnedDate;
+	
 	
 	@Column(name="rental_price")
-	private int rentalPrice;
+	private double rentalPrice;
 	
 	@ManyToOne
     @JoinColumn(name = "customer_id")

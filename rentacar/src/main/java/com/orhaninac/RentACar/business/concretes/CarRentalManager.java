@@ -119,6 +119,16 @@ public class CarRentalManager implements CarRentalService {
 		//maplenerek car service kullanılacak
 		Car car=carDao.getById(updateCarRentalRequest.getCarId());
 		car.setCurrentKm(updateCarRentalRequest.getReturnedKm());
+		List<OrderedAdditionalService> orderedAdditionalServices = updateCarRentalRequest.getAdditionalServicesIds()
+				.stream().map(additionalService -> this.modelMapperService
+						.forRequest().map(additionalService, OrderedAdditionalService.class))
+				.collect(Collectors.toList());
+		
+		for (int i = 0; i < orderedAdditionalServices.size(); i++) {
+			orderedAdditionalServices.get(i).setId(0);
+			orderedAdditionalServices.get(i).setCarRental(carRental);
+		}
+		
 		carDao.save(car);
 		carRentalDao.save(carRental);
 		

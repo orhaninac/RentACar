@@ -2,6 +2,7 @@ package com.orhaninac.RentACar.business.abstracts;
 
 import java.util.List;
 
+import com.orhaninac.RentACar.business.dtos.GetInvoiceDto;
 import com.orhaninac.RentACar.business.dtos.ListInvoiceDto;
 import com.orhaninac.RentACar.business.request.CreateInvoiceRequest;
 import com.orhaninac.RentACar.business.request.UpdateInvoiceRequest;
@@ -14,7 +15,7 @@ public interface InvoiceService {
 
 	Result add(CreateInvoiceRequest createInvoiceRequest);
 
-	DataResult<ListInvoiceDto> getById(int id);
+	DataResult<GetInvoiceDto> getById(int id);
 
 	Result delete(int id);
 
