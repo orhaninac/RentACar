@@ -74,6 +74,7 @@ public class CarRentalManager implements CarRentalService {
 		
 		checkIfCarIsAvaliable(createCarRentalRequest.getCarId());
 		CarRental carRental = this.modelMapperService.forRequest().map(createCarRentalRequest, CarRental.class);
+		
 		List<OrderedAdditionalService> orderedAdditionalServices = createCarRentalRequest.getAdditionalServicesIds()
 				.stream().map(additionalService -> this.modelMapperService
 						.forRequest().map(additionalService, OrderedAdditionalService.class))

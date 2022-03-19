@@ -37,8 +37,8 @@ public class InvoiceController {
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestBody @Valid CreateInvoiceRequest createColorRequest) {
-		return this.invoiceService.add(createColorRequest);
+	public Result add(@RequestBody @Valid CreateInvoiceRequest createInvoiceRequest) {
+		return this.invoiceService.add(createInvoiceRequest);
 	}
 
 	@GetMapping("/getbyid/{id}")

@@ -1,7 +1,6 @@
 package com.orhaninac.RentACar.business.request;
 
-import java.time.LocalDate;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -11,14 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateInvoiceRequest {
-
+public class CreateCarDamageRequest {
 	@NotNull
-	private int invoiceNumber;
-
-	@NotNull
-	private LocalDate invoiceDate;
+	@Min(1)
+	private int carId;
 	
-	private int carRentalId;
-
+	@NotNull
+	private String damageDescription;
+	
 }
