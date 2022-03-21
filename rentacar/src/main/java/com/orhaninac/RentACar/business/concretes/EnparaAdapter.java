@@ -1,15 +1,16 @@
 package com.orhaninac.RentACar.business.concretes;
 
-import com.orhaninac.RentACar.business.abstracts.PaymentAdapter;
-import com.orhaninac.RentACar.business.abstracts.PosService;
-import com.orhaninac.RentACar.entities.concretes.Payment;
+import com.orhaninac.RentACar.business.abstracts.PosAdapterService;
+import com.orhaninac.RentACar.core.utilities.results.Result;
+import com.orhaninac.RentACar.core.utilities.results.SuccessResult;
 
-public class EnparaAdapter implements PaymentAdapter {
+public class EnparaAdapter implements PosAdapterService {
+
 
 	@Override
-	public void MakePayment(Payment payment) {
-		// TODO Auto-generated method stub
-		
+	public Result makePayment(String cardNo, String cvv, double amount) {
+		return new SuccessResult("The payment was made with the ENPARA");
 	}
+
 
 }

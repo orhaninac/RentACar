@@ -10,6 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment {
 
 	@Id
@@ -33,6 +40,12 @@ public class Payment {
 	@OneToOne
 	@JoinColumn(name = "car_rental_id")
 	private CarRental carRental;
+	
+	@Column(name="card_no")
+	private String cardNo;
+	
+	@Column(name="ccv")
+	private String ccv;
 	
 		
 }
