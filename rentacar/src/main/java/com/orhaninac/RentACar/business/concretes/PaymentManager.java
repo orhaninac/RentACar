@@ -54,7 +54,7 @@ public class PaymentManager implements PaymentService {
 		double totalPrice = 0.0;
 
 
-		this.posAdapterService.makePayment(createPaymentRequest.getCardNo(), createPaymentRequest.getCcv(), totalPrice);
+		//this.posAdapterService.makePayment(createPaymentRequest.getCardNo(), createPaymentRequest.getCcv(), totalPrice);
 
 		Payment payment = this.modelMapperService.forRequest().map(createPaymentRequest, Payment.class);
 		payment.setTotalPrice(totalPrice);
